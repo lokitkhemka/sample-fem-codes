@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 DATA_PATH = os.path.join("input_files","fem_conststrain")
 
 
-def read_data_file(data_path,file_name):
+def read_data(data_path,file_name):
     try:
         file_path = os.path.join(data_path,file_name)
         file = open(file_path)
@@ -75,7 +75,7 @@ def el_force_vector(xa,ya,xb,yb,tx,ty):
     return rel
 
         
-E,nu,NNodes,NodeCoords,NEls,el_connect,nfix,fixnodes,ndload,dloads = read_data_file(DATA_PATH,"FEM_conststrain_input.txt")
+E,nu,NNodes,NodeCoords,NEls,el_connect,nfix,fixnodes,ndload,dloads = read_data(DATA_PATH,"FEM_conststrain_input.txt")
 
 
 #Plotting the undeformed mesh
