@@ -1,0 +1,2 @@
+Nodal Displacements:   8.9235  93.3300
+Node    u1     u2
