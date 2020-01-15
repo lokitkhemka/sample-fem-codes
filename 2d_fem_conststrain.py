@@ -26,6 +26,7 @@ def read_data(data_path,file_name):
     #Reading material properties
     try:
         mat_props = file.readline().strip().split()
+        print(mat_props)
         E = float(mat_props[0])
         nu = float(mat_props[1])
         
@@ -43,9 +44,12 @@ def read_data(data_path,file_name):
         
         #Reading number of loaded elements and given loads
         ndload = np.genfromtxt(file,dtype=int,max_rows=1)
-        dloads = np.genfromtxt(file,max_rows = ndload).reshape((ndload,4))
+        if(ndload == 0):
+            dloads = np.zeros((1,4))
+        else:
+            dloads = np.genfromtxt(file,max_rows = ndload).reshape((ndload,4))
         return E,nu,NNodes,NodeCoords,NEls,el_connect,nfix,fixnodes,ndload,dloads
-    except:
+#    except:
         print("File Reading error. Please check the format of input file.")
         return None
     
@@ -127,7 +131,7 @@ def write_output(filename,u,NNodes,el_connect,Dmat):
 
 
         
-E,nu,NNodes,NodeCoords,NEls,el_connect,nfix,fixnodes,ndload,dloads = read_data(DATA_PATH,"FEM_conststrain_input.txt")
+E,nu,NNodes,NodeCoords,NEls,el_connect,nfix,fixnodes,ndload,dloads = read_data(DATA_PATH,"FEM_conststrain_holeplate.txt")
 
 
 #Plotting the undeformed mesh
@@ -192,7 +196,7 @@ for i in range(0,nfix):
 u = np.linalg.solve(K_g,resid)
 
 #computing the stress and strains and writing the output in a file
-write_output("fem_constrain_output.txt",u,NNodes,el_connect,Dmat)
+write_output("fem_constrain_holeplate_op.txt",u,NNodes,el_connect,Dmat)
 
 #Plotting the results
 plt.figure(1)
